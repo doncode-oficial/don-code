@@ -1,9 +1,57 @@
-.cubo{
-    position: absolute;
-    width: 5rem;
-    height: 5rem;
-    background: white;
-    left: 25%;
-    
 
+.typewriter-hide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #212529;
+  height: 105%;
+  border-right: .05em solid white;
+  letter-spacing: 0.5rem;
+  transform: rotate(180deg);
+  animation:
+    typing 3s steps(10, end) 12,
+    blink-caret 0.75s step-end 48;
+  animation-fill-mode: forwards;
+}
+
+/* The typing effect */
+@keyframes typing {
+  0% {
+    left: 0%;
+    width: 100%;
+  }
+
+  50% {
+    left: 100%;
+    width: 0%;
+  }
+
+  100% {
+    left: 0%;
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    border-color: white;
+  }
+}
+
+.menu-container {
+  bottom: 5%;
+  right: 5%;
+}
+
+/* Contenedor del primer proyecto */
+.stop-container {
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
 }
