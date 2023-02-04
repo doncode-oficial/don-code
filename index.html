@@ -9,6 +9,7 @@
 
     <!-- Estilo personalizado -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/rouletteStyle.css">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -32,18 +33,18 @@
             </div>
 
             <!-- Menu -->
-            <div class="card shadow-lg bg-dark position-absolute menu-container">
-                <button class="btn btn-dark m-0 p-0 py-2 px-3">Stop!</button>
-                <button class="btn btn-dark m-0 p-0 py-2 px-3">Blog</button>
-                <button class="btn btn-dark m-0 p-0 py-2 px-3">Contacto</button>
-                <button class="btn btn-dark m-0 p-0 py-2 px-3">Redes sociales</button>
+            <div class="card shadow-lg bg-light position-absolute menu-container">
+                <button class="btn btn-light m-0 p-0 py-2 px-3" onclick="navigate(1)">Stop!</button>
+                <a href="#" class="btn btn-light m-0 p-0 py-2 px-3">Blog</a>
+                <a href="#" class="btn btn-light m-0 p-0 py-2 px-3">Contacto</a>
+                <a href="#" class="btn btn-light m-0 p-0 py-2 px-3">Redes sociales</a>
             </div>
         </div>
 
     </header>
 
     <!-- Stop! -->
-    <div class="vh-100 text-dark bg-success stop-container">
+    <div class="vh-100 text-dark bg-success position-relative stop-container-bg project">
         <h1 class="px-5 pt-5 text-underline display-1">
             Stop!
         </h1>
@@ -53,22 +54,59 @@
             que escribir a toda velocidad con una letra otorgada
             aleatoriamente. ¿Qué esperas para jugarlo?
         </p>
+            
+        <button class="ms-5 p-2 button-play">Clic aquí para entrar en el juego</button>
 
-        <button class="ms-5 btn btn-dark">Clic aquí para entrar en el juego</button>
+        <!-- Ruleta -->
+        <div class="roulette-container">
+            <div class="ruleta">
+                <div class="letra la">A</div>
+                <div class="letra lb">B</div>
+                <div class="letra lc">C</div>
+                <div class="letra ld">D</div>
+                <div class="letra le">E</div>
+                <div class="letra lf">F</div>
+                <div class="letra lg">G</div>
+                <div class="letra lh">H</div>
+                <div class="letra li">I</div>
+                <div class="letra lj">J</div>
+                <div class="letra lk">K</div>
+                <div class="letra ll">L</div>
+                <div class="letra lm">M</div>
+                <div class="letra ln">N</div>
+                <div class="letra lo">O</div>
+                <div class="letra lp">P</div>
+                <div class="letra lq">Q</div>
+                <div class="letra lr">R</div>
+                <div class="letra ls">S</div>
+                <div class="letra lt">T</div>
+                <div class="letra lu">U</div>
+                <div class="letra lv">V</div>
+                <div class="letra lw">W</div>
+                <div class="letra lx">X</div>
+                <div class="letra ly">Y</div>
+                <div class="letra lz">Z</div>
+            </div>
+        </div>
     </div>
 
-    <footer>
-
+    <footer class="text-center bg-dark text-light py-2">
+        Don Code &copy; Todos los derechos reservados.
     </footer>
+
+    <!-- Script para el scroll behavior -->
+    <script src="./js/smoothScroll.js"></script>
 
     <!-- Script propio de la página -->
     <script src="./index.js"></script>
+    <script src="./js/rouletteJs.js"></script>
+
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-    
+
 </body>
 
 </html>

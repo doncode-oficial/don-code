@@ -18,3 +18,18 @@ let modifyTextOnLoad = async () => {
 }
 
 modifyTextOnLoad();
+
+async function navigate(p) {
+    let theViewPort = window.innerHeight;
+    let amountPixels = theViewPort*p;
+
+    easyScroll({
+        'scrollableDomEle': window,
+        'direction': 'bottom',
+        'duration': 1500,
+        'easingPreset': 'easeInOutQuad',
+        'scrollAmount': amountPixels
+    });
+}
+
+

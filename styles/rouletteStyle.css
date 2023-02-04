@@ -1,0 +1,36 @@
+.ruleta {
+    position: relative;
+    background-color: #85FFBD;
+    background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: rotacion 5s ease-in-out 2s infinite forwards;
+}
+
+@keyframes rotacion {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(720deg);
+    }
+}
+
+.letra {
+    position: absolute;
+    font-family: 'system-ui';
+    top: 50%;
+    left: 50%;
+    width: 10rem;
+    height: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    align-items: center;
+    transform-origin: top left;
+}
