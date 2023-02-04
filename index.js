@@ -32,4 +32,8 @@ async function navigate(p) {
     });
 }
 
+function goToPage(page) {
+    window.location.href = "./htmls/stop/stop.html";
+}
+
 
