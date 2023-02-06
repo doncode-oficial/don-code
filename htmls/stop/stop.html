@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,10 +14,64 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
+
 <body>
     <!-- Contenedor general -->
-    <div class="container-fluid m-0 p-0 vh-100 position-relative d-flex justify-content-center align-items-center general-container">
+    <div class="container-fluid m-0 p-0 general-container">
+
+        <!-- Contenedor para ingresar el nombre -->
+        <div class="container-form rounded-5 px-5 text-center d-none">
+            <h1 class="text-light text-center pt-3">Stop!</h1>
+            <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="nombre" name="nombre" />
+            <button class="btn btn-light mb-3">Aceptar</button>
+        </div>
+
+        <h2 class="text-light text-center py-4">S T O P !</h2>
+
+        <!-- Contendor para iniciar el juego -->
+        <div class="pt-3 p-2">
+            <p class="form-label-styled text-light p-2 mb-3">
+                Jugador #1: Juan Diego&emsp;Puntuación:
+            </p>
+
+            <div id="game-columns" class="row g-3 text-center">
+                <div class="col-sm-2">
+                    <label class="form-label-styled text-light p-2">Nombre</label>
+                    <input class="form-control-styled text-dark" name="nombreG" id="nombreG" type="text" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-label-styled text-light p-2">Apellido</label>
+                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
+                </div>
+                <div class="col-sm-1">
+                    <label class="form-label-styled text-light p-2">País</label>
+                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-label-styled text-light p-2">Animal</label>
+                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
+                </div>
+                <div class="col-sm-1">
+                    <label class="form-label-styled text-light p-2">Fruta</label>
+                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-label-styled text-light p-2">Color</label>
+                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-label-styled text-light p-2">Objeto</label>
+                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
+                </div>
+            </div>
+
+            <button class="btn btn-outline-dark mt-3 w-100">S T O P !</button>
+        </div>
     </div>
-    
+
+
+    <script src="./js/socket.io-client/dist/socket.io.js"></script>
+    <script src="./main.js"></script>
 </body>
+
 </html>
