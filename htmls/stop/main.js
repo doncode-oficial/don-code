@@ -6,9 +6,32 @@
 
 // socket.emit("hello from client", "hello world");
 
+function closeAlert() {
+    
+}
 
-function enterInGame(name) {
+function createNewRoom() {
+    let name = document.getElementById('name').value;
+
+    if (name == "") {
+        alert("Por favor ingresa tu nombre");
+        return false;
+    }
+
+
+
+}
+
+function enterInRoom(){
+    let room = document.getElementById("roo").value;
+}
+
+function enterInGame() {
     // Desaparecer el cartel del stop
+    let containerForm = document.getElementById("containerForm");
+    containerForm.classList.add("container-form-hidde");
+
+    // Mostrar el panel de jugadores 
 
     // Agregar un contenedor flotante
     // donde una vez los jugadores

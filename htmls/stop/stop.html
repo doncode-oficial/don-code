@@ -20,53 +20,111 @@
     <div class="container-fluid m-0 p-0 general-container">
 
         <!-- Contenedor para ingresar el nombre -->
-        <div class="container-form rounded-5 px-5 text-center d-none">
-            <h1 class="text-light text-center pt-3">Stop!</h1>
-            <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="nombre" name="nombre" />
-            <button class="btn btn-light mb-3">Aceptar</button>
+        <div id="containerForm"
+            class="container-form rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
+            <h1 class="m-0 p-0 text-light text-center pt-3">Stop!</h1>
+            <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="name" name="name" />
+            <input class="form-control my-3" type="text" placeholder="# de la sala" id="room" name="room" />
+            <button class="btn btn-light mb-3" onclick="enterInGame()">Ingresar</button>
+            <button class="btn btn-light mb-3" onclick="enterInRoom()">Ingresar a sala creada</button>
+            <button class="btn btn-light mb-3" onclick="createNewRoom()">Crear nueva sala</button>
         </div>
 
-        <h2 class="text-light text-center py-4">S T O P !</h2>
+        <!-- Alert de por favor ingresa tu nombre -->
+        <div class="alert alert-danger" role="alert">
+            <div class="row g-0">
+                <div class="col-1 d-flex justify-content-center align-items-center">
+                    <button class="btn btn-danger" onclick="closeAlert(name)">
+                        <b>X</b>
+                    </button>
+                </div>
+                <div class="col-11 d-flex align-items-center">
+                    <span>¡Por favor ingresa tu nombre!</span>
+                </div>
+            </div>
+        </div>
 
-        <!-- Contendor para iniciar el juego -->
+        <!-- Alert de por favor ingresa el número de la sala -->
+        <div class="alert alert-danger" role="alert">
+            <div class="row g-0">
+                <div class="col-1 d-flex justify-content-center align-items-center">
+                    <button class="btn btn-danger" onclick="closeAlert(room)">
+                        <b>X</b>
+                    </button>
+                </div>
+                <div class="col-11 d-flex align-items-center">
+                    <span>¡Por favor ingresa el número de la sala!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor para mostrar la sala y los jugadores -->
+        <!-- <div id="containerPlayers"
+            class="container-form rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
+            <div class="w-100">
+                <h1 class="m-0 p-0 text-light text-center pt-3">Jugadores</h1>
+                    <span></span>
+                <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="nombre"
+                    name="nombre" />
+                <button class="btn btn-light mb-3" onclick="enterInGame()">Aceptar</button>
+            </div>
+        </div> -->
+
+        <!-- <h2 class="text-light text-center py-4">S T O P !</h2>
+
+        Contendor para iniciar el juego
         <div class="pt-3 p-2">
             <p class="form-label-styled text-light p-2 mb-3">
                 Jugador #1: Juan Diego&emsp;Puntuación:
             </p>
 
             <div id="game-columns" class="row g-3 text-center">
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <label class="form-label-styled text-light p-2">Nombre</label>
                     <input class="form-control-styled text-dark" name="nombreG" id="nombreG" type="text" />
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <label class="form-label-styled text-light p-2">Apellido</label>
                     <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-4">
                     <label class="form-label-styled text-light p-2">País</label>
                     <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <label class="form-label-styled text-light p-2">Animal</label>
                     <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-4">
                     <label class="form-label-styled text-light p-2">Fruta</label>
                     <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <label class="form-label-styled text-light p-2">Color</label>
                     <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <label class="form-label-styled text-light p-2">Objeto</label>
+                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
+                </div>
+                <div class="col-sm-4">
+                    <label class="form-label-styled text-light p-2">Artista</label>
+                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
+                </div>
+                <div class="col-sm-4">
+                    <label class="form-label-styled text-light p-2">Ciudad</label>
                     <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
                 </div>
             </div>
 
             <button class="btn btn-outline-dark mt-3 w-100">S T O P !</button>
         </div>
+
+        New markup
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0"
+            aria-valuemax="100">
+            <div class="progress-bar" style="width: 60%"></div>
+        </div> -->
     </div>
 
 
