@@ -1,29 +1,72 @@
-// const socket = io("ws://localhost:3000");
+function addHtmlPlayer(container, playerName){
+    let divElement = document.createElement("div");
+    divElement.className = "col-4"
+    divElement.innerHTML = playerName;
+    container.appendChild(divElement);
+}
 
-// socket.on("hello from server", (...args) => {
-//     console.log(...args);
-// })
+const socket = io("ws://localhost:3000");
 
-// socket.emit("hello from client", "hello world");
+let idRoom = "";
+let thePlayers = [];
 
-function closeAlert() {
-    
+socket.on("id-room", (idRoom) => {
+    let roomH1 = document.getElementById("idRoom");
+    roomH1.classList.add("container-room-show");
+    roomH1.innerHTML = `Sala #${idRoom}`
+    idRoom = idRoom;
+    let containerThePlayers = document.getElementById("thePlayers");
+    addHtmlPlayer(containerThePlayers, thePlayers[0]);
+})
+
+socket.on("player-joined", (...args) => {
+    let { playerName } = args[0];
+    playerName = playerName + "" + thePlayers.length; 
+    thePlayers.push(playerName);
+})
+
+function closeAlert(n) {
+    let theAlerts = document.getElementsByClassName("alert");
+    theAlerts[n].classList.remove("d-block");
+    theAlerts[n].classList.add("d-none");
 }
 
 function createNewRoom() {
+    let theAlerts = document.getElementsByClassName("alert");
     let name = document.getElementById('name').value;
+    name += "" + thePlayers.length;
 
     if (name == "") {
-        alert("Por favor ingresa tu nombre");
+        theAlerts[0].classList.remove("d-none");
+        theAlerts[0].classList.add("d-block");
         return false;
     }
 
+    socket.emit("create-room", name);
+    thePlayers.push(name);
 
-
+    let containerForm = document.getElementById("containerForm");
+    containerForm.classList.add("container-form-hidde");
+    let containerRoom = document.getElementById("containerRoom");
+    containerRoom.classList.add("container-room-show");
 }
 
 function enterInRoom(){
-    let room = document.getElementById("roo").value;
+    let theAlerts = document.getElementsByClassName("alert");
+    let name = document.getElementById('name').value;
+    name += "" + thePlayers.length;
+    let room = document.getElementById("room").value;
+    if (room == "" || name == "") {
+        theAlerts[1].classList.remove("d-none");
+        theAlerts[1].classList.add("d-block");
+        return false;
+    }
+
+    socket.emit("join-room", name);
+    let containerForm = document.getElementById("containerForm");
+    containerForm.classList.add("container-form-hidde");
+    let containerRoom = document.getElementById("containerRoom");
+    containerRoom.classList.add("container-room-show");
 }
 
 function enterInGame() {

@@ -25,16 +25,15 @@
             <h1 class="m-0 p-0 text-light text-center pt-3">Stop!</h1>
             <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="name" name="name" />
             <input class="form-control my-3" type="text" placeholder="# de la sala" id="room" name="room" />
-            <button class="btn btn-light mb-3" onclick="enterInGame()">Ingresar</button>
             <button class="btn btn-light mb-3" onclick="enterInRoom()">Ingresar a sala creada</button>
             <button class="btn btn-light mb-3" onclick="createNewRoom()">Crear nueva sala</button>
         </div>
 
         <!-- Alert de por favor ingresa tu nombre -->
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger d-none" role="alert">
             <div class="row g-0">
                 <div class="col-1 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-danger" onclick="closeAlert(name)">
+                    <button class="btn btn-danger" onclick="closeAlert(0)">
                         <b>X</b>
                     </button>
                 </div>
@@ -45,10 +44,10 @@
         </div>
 
         <!-- Alert de por favor ingresa el número de la sala -->
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger d-none" role="alert">
             <div class="row g-0">
                 <div class="col-1 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-danger" onclick="closeAlert(room)">
+                    <button class="btn btn-danger" onclick="closeAlert(1)">
                         <b>X</b>
                     </button>
                 </div>
@@ -59,16 +58,17 @@
         </div>
 
         <!-- Contenedor para mostrar la sala y los jugadores -->
-        <!-- <div id="containerPlayers"
-            class="container-form rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
+        <div id="containerRoom"
+            class="container-room rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
             <div class="w-100">
-                <h1 class="m-0 p-0 text-light text-center pt-3">Jugadores</h1>
-                    <span></span>
-                <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="nombre"
-                    name="nombre" />
-                <button class="btn btn-light mb-3" onclick="enterInGame()">Aceptar</button>
+                <h1 id="idRoom" class="m-0 p-0 text-light text-center pt-3">Sala</h1>
+                
+                <div id="thePlayers" class="row gx-0 gy-3 m-0 p-0 py-3 text-light justify-content-center">                    
+                </div>
+                
+                <button class="btn btn-light mb-3" onclick="startGame()">¡Comenzar!</button>
             </div>
-        </div> -->
+        </div>
 
         <!-- <h2 class="text-light text-center py-4">S T O P !</h2>
 
