@@ -17,114 +17,111 @@
 
 <body>
     <!-- Contenedor general -->
-    <div class="container-fluid m-0 p-0 general-container">
+    <div class="container-fluid m-0 p-0 general-container"></div>
 
-        <!-- Contenedor para ingresar el nombre -->
-        <div id="containerForm"
-            class="container-form rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
-            <h1 class="m-0 p-0 text-light text-center pt-3">Stop!</h1>
-            <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="name" name="name" />
-            <input class="form-control my-3" type="text" placeholder="# de la sala" id="room" name="room" />
-            <button class="btn btn-light mb-3" onclick="enterInRoom()">Ingresar a sala creada</button>
-            <button class="btn btn-light mb-3" onclick="createNewRoom()">Crear nueva sala</button>
-        </div>
+    <!-- Contenedor para ingresar el nombre -->
+    <div id="containerForm"
+        class="container-form rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
+        <h1 class="m-0 p-0 text-light text-center pt-3">Stop!</h1>
+        <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="name" name="name" />
+        <input class="form-control my-3" type="text" placeholder="# de la sala" id="room" name="room" />
+        <button class="btn btn-light mb-3" onclick="enterInRoom()">Ingresar a sala creada</button>
+        <button class="btn btn-light mb-3" onclick="createNewRoom()">Crear nueva sala</button>
+    </div>
 
-        <!-- Alert de por favor ingresa tu nombre -->
-        <div class="alert alert-danger d-none" role="alert">
-            <div class="row g-0">
-                <div class="col-1 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-danger" onclick="closeAlert(0)">
-                        <b>X</b>
-                    </button>
-                </div>
-                <div class="col-11 d-flex align-items-center">
-                    <span>¡Por favor ingresa tu nombre!</span>
-                </div>
+    <!-- Alert de por favor ingresa tu nombre -->
+    <div class="alert alert-danger d-none" role="alert">
+        <div class="row g-0">
+            <div class="col-1 d-flex justify-content-center align-items-center">
+                <button class="btn btn-danger" onclick="closeAlert(0)">
+                    <b>X</b>
+                </button>
+            </div>
+            <div class="col-11 d-flex align-items-center">
+                <span>¡Por favor ingresa tu nombre!</span>
             </div>
         </div>
+    </div>
 
-        <!-- Alert de por favor ingresa el número de la sala -->
-        <div class="alert alert-danger d-none" role="alert">
-            <div class="row g-0">
-                <div class="col-1 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-danger" onclick="closeAlert(1)">
-                        <b>X</b>
-                    </button>
-                </div>
-                <div class="col-11 d-flex align-items-center">
-                    <span>¡Por favor ingresa el número de la sala!</span>
-                </div>
+    <!-- Alert de por favor ingresa el número de la sala -->
+    <div class="alert alert-danger d-none" role="alert">
+        <div class="row g-0">
+            <div class="col-1 d-flex justify-content-center align-items-center">
+                <button class="btn btn-danger" onclick="closeAlert(1)">
+                    <b>X</b>
+                </button>
+            </div>
+            <div class="col-11 d-flex align-items-center">
+                <span>¡Por favor ingresa el número de la sala!</span>
             </div>
         </div>
+    </div>
 
-        <!-- Contenedor para mostrar la sala y los jugadores -->
-        <div id="containerRoom"
-            class="container-room rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
-            <div class="w-100">
-                <h1 id="idRoom" class="m-0 p-0 text-light text-center pt-3">Sala</h1>
-                
-                <div id="thePlayers" class="row gx-0 gy-3 m-0 p-0 py-3 text-light justify-content-center">                    
-                </div>
-                
-                <button class="btn btn-light mb-3" onclick="startGame()">¡Comenzar!</button>
-            </div>
-        </div>
+    <!-- Contenedor para mostrar la sala y los jugadores -->
+    <div id="containerRoom"
+        class="container-room rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
+        <div class="w-100">
+            <h1 id="idRoom" class="m-0 p-0 text-light text-center pt-3">Sala</h1>
 
-        <!-- <h2 class="text-light text-center py-4">S T O P !</h2>
-
-        Contendor para iniciar el juego
-        <div class="pt-3 p-2">
-            <p class="form-label-styled text-light p-2 mb-3">
-                Jugador #1: Juan Diego&emsp;Puntuación:
-            </p>
-
-            <div id="game-columns" class="row g-3 text-center">
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">Nombre</label>
-                    <input class="form-control-styled text-dark" name="nombreG" id="nombreG" type="text" />
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">Apellido</label>
-                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">País</label>
-                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">Animal</label>
-                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">Fruta</label>
-                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">Color</label>
-                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">Objeto</label>
-                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">Artista</label>
-                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label-styled text-light p-2">Ciudad</label>
-                    <input class="form-control-styled" name="nombreG" id="nombreG" type="text" />
-                </div>
+            <div id="thePlayers" class="row gx-0 gy-3 m-0 p-0 py-3 text-light justify-content-center">
             </div>
 
-            <button class="btn btn-outline-dark mt-3 w-100">S T O P !</button>
+            <button class="btn btn-light mb-3" onclick="startGame()">¡Comenzar!</button>
+            <button class="btn btn-light mb-3" onclick="goBack()">Regresar</button>
         </div>
+    </div>
 
-        New markup
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0"
-            aria-valuemax="100">
-            <div class="progress-bar" style="width: 60%"></div>
-        </div> -->
+
+    <!-- Contendor de juego iniciado -->
+    <div id="containerGame" class="container-game pt-3 p-2 position-absolute top-0 start-0 vh-100">
+        <h2 class="text-light text-center py-4">S T O P !</h2>
+
+        <p id="theplayer" class="form-label-styled text-light p-2 mb-3">
+            Jugador #1: Juan Diego
+        </p>
+
+        <div id="game-columns" class="row g-3 justify-content-center text-center">
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Nombre</label>
+                <input class="form-control-styled text-light" name="nombreG" id="nombreG" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Apellido</label>
+                <input class="form-control-styled text-light" name="apellido" id="apellido" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">País</label>
+                <input class="form-control-styled text-light" name="pais" id="pais" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Animal</label>
+                <input class="form-control-styled text-light" name="animal" id="animal" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Fruta</label>
+                <input class="form-control-styled text-light" name="fruta" id="fruta" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Color</label>
+                <input class="form-control-styled text-light" name="color" id="color" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Objeto</label>
+                <input class="form-control-styled text-light" name="objeto" id="objeto" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Artista</label>
+                <input class="form-control-styled text-light" name="artista" id="artista" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Ciudad</label>
+                <input class="form-control-styled text-light" name="ciudad" id="ciudad" type="text" />
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <button class="btn btn-dark">S T O P !</button>
+            </div>
+        </div>
     </div>
 
 

@@ -1,86 +1,93 @@
-function addHtmlPlayer(container, playerName){
-    let divElement = document.createElement("div");
-    divElement.className = "col-4"
-    divElement.innerHTML = playerName;
-    container.appendChild(divElement);
-}
+let theAlerts = document.getElementsByClassName("alert");
+let nameElement = document.getElementById('name');
+let roomElement = document.getElementById("room");
+
+let roomH1 = document.getElementById("idRoom");
+let containerThePlayers = document.getElementById("thePlayers");
+
+let containerForm = document.getElementById("containerForm");
+let containerRoom = document.getElementById("containerRoom");
+let containerGame = document.getElementById("containerGame");
 
 const socket = io("ws://localhost:3000");
 
-let idRoom = "";
-let thePlayers = [];
-
-socket.on("id-room", (idRoom) => {
-    let roomH1 = document.getElementById("idRoom");
+socket.on("id-room", (idRoom, thePlayers) => {
     roomH1.classList.add("container-room-show");
-    roomH1.innerHTML = `Sala #${idRoom}`
-    idRoom = idRoom;
-    let containerThePlayers = document.getElementById("thePlayers");
-    addHtmlPlayer(containerThePlayers, thePlayers[0]);
+    roomH1.innerHTML = `Sala #${idRoom}`;
+    addHtmlPlayer(thePlayers[0]);
 })
 
-socket.on("player-joined", (...args) => {
-    let { playerName } = args[0];
-    playerName = playerName + "" + thePlayers.length; 
-    thePlayers.push(playerName);
+socket.on("player-joined", (idRoom, thePlayers) => {
+    roomH1.classList.add("container-room-show");
+    roomH1.innerHTML = `Sala #${idRoom}`;
+
+    // Primero se remueven los elementos hijos anteriores
+    let child = containerThePlayers.lastElementChild;
+    while (child) {
+        containerThePlayers.removeChild(child);
+        child = containerThePlayers.lastElementChild;
+    }
+
+    for (let i = 0; i < thePlayers.length; i++) {
+        console.log(thePlayers[i]);
+        addHtmlPlayer(thePlayers[i])
+    };
 })
 
 function closeAlert(n) {
-    let theAlerts = document.getElementsByClassName("alert");
     theAlerts[n].classList.remove("d-block");
     theAlerts[n].classList.add("d-none");
 }
 
 function createNewRoom() {
-    let theAlerts = document.getElementsByClassName("alert");
-    let name = document.getElementById('name').value;
-    name += "" + thePlayers.length;
-
-    if (name == "") {
+    if (nameElement.value == "") {
         theAlerts[0].classList.remove("d-none");
         theAlerts[0].classList.add("d-block");
         return false;
     }
 
-    socket.emit("create-room", name);
-    thePlayers.push(name);
-
-    let containerForm = document.getElementById("containerForm");
+    socket.emit("create-room", nameElement.value);
     containerForm.classList.add("container-form-hidde");
-    let containerRoom = document.getElementById("containerRoom");
     containerRoom.classList.add("container-room-show");
 }
 
-function enterInRoom(){
-    let theAlerts = document.getElementsByClassName("alert");
-    let name = document.getElementById('name').value;
-    name += "" + thePlayers.length;
-    let room = document.getElementById("room").value;
-    if (room == "" || name == "") {
+function enterInRoom() {
+    if (roomElement.value == "") {
         theAlerts[1].classList.remove("d-none");
         theAlerts[1].classList.add("d-block");
         return false;
     }
 
-    socket.emit("join-room", name);
-    let containerForm = document.getElementById("containerForm");
+    if (nameElement.value == "") {
+        theAlerts[0].classList.remove("d-none");
+        theAlerts[0].classList.add("d-block");
+        return false;
+    }
+
+    socket.emit("join-room", nameElement.value, roomElement.value);
     containerForm.classList.add("container-form-hidde");
-    let containerRoom = document.getElementById("containerRoom");
     containerRoom.classList.add("container-room-show");
 }
 
-function enterInGame() {
+function addHtmlPlayer(playerName) {
+    let divElement = document.createElement("div");
+    divElement.className = "col-4"
+    divElement.innerHTML = playerName;
+    containerThePlayers.appendChild(divElement);
+}
+
+function startGame() {
     // Desaparecer el cartel del stop
-    let containerForm = document.getElementById("containerForm");
     containerForm.classList.add("container-form-hidde");
-
+    // Desparecer el cartel de jugadores
+    containerRoom.classList.remove("container-room-show");
     // Mostrar el panel de jugadores 
+    containerGame.classList.add("container-game-show");
 
-    // Agregar un contenedor flotante
-    // donde una vez los jugadores
-    // han ingresado al juego,
-    // se le pueda dar click
-    // a iniciar para poder comenzar el juego
-    let divGameColumns = document.getElementById("game-columns");
-    divGameColumns
+
+
+}
+
+function goBack() {
+
 }
