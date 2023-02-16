@@ -15,7 +15,7 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<body>
+<body onload="organizarLetras()">
     <!-- Contenedor general -->
     <div class="container-fluid m-0 p-0 general-container"></div>
 
@@ -71,12 +71,49 @@
         </div>
     </div>
 
+    <!-- Contenedor de ruleta -->
+    <!-- Ruleta -->
+    <div class="roulette-container position-absolute top-50 start-50 translate-middle text-light">
+        <div class="arrow-container">
+            <div class="arrow"></div>
+            <div class="arrow-symbol"></div>
+        </div>
+        <div id="roulette-container" class="ruleta">
+            <div class="letra la">A</div>
+            <div class="letra lb">B</div>
+            <div class="letra lc">C</div>
+            <div class="letra ld">D</div>
+            <div class="letra le">E</div>
+            <div class="letra lf">F</div>
+            <div class="letra lg">G</div>
+            <div class="letra lh">H</div>
+            <div class="letra li">I</div>
+            <div class="letra lj">J</div>
+            <div class="letra lk">K</div>
+            <div class="letra ll">L</div>
+            <div class="letra lm">M</div>
+            <div class="letra ln">N</div>
+            <div class="letra lo">O</div>
+            <div class="letra lp">P</div>
+            <div class="letra lq">Q</div>
+            <div class="letra lr">R</div>
+            <div class="letra ls">S</div>
+            <div class="letra lt">T</div>
+            <div class="letra lu">U</div>
+            <div class="letra lv">V</div>
+            <div class="letra lw">W</div>
+            <div class="letra lx">X</div>
+            <div class="letra ly">Y</div>
+            <div class="letra lz">Z</div>
+        </div>
+    </div>
+
 
     <!-- Contendor de juego iniciado -->
     <div id="containerGame" class="container-game pt-3 p-2 position-absolute top-0 start-0 vh-100">
         <h2 class="text-light text-center py-4">S T O P !</h2>
 
-        <p id="theplayer" class="form-label-styled text-light p-2 mb-3">
+        <p id="theplayer" class="form-label-styled text-light p-2 ps-5 mb-3">
             Jugador #1: Juan Diego
         </p>
 

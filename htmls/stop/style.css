@@ -68,3 +68,74 @@
     border-radius: .375rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
+/* RULETA */
+.roulette-container {
+    z-index: 3;
+}
+
+.arrow-container {
+    position: absolute;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.arrow {
+    height: 0.15rem;
+    width: 60%;
+}
+
+.arrow-symbol {
+    border-top: 3px solid white;
+    border-right: 3px solid white;
+    transform: rotate(45deg);
+    height: 1rem;
+    width: 1rem;
+
+}
+
+.ruleta {
+    position: relative;
+    z-index: 3;
+    background: linear-gradient(315deg, rgba(101,0,94,1) 3%, rgba(60,132,206,1) 38%, rgba(48,238,226,1) 68%, rgba(255,25,25,1) 98%);
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-6deg);
+    transition: transform 5s ease-in-out;
+    animation: movebackground 10s linear infinite;
+}
+
+/* @keyframes rotacion {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(720deg);
+    }
+} */
+
+.letra {
+    position: absolute;
+    font-family: 'system-ui';
+    top: 50%;
+    left: 50%;
+    width: 10rem;
+    height: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    align-items: center;
+    transform-origin: top left;
+}
