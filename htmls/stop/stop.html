@@ -15,13 +15,10 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<body onload="organizarLetras()">
-    <!-- Contenedor general -->
-    <div class="container-fluid m-0 p-0 general-container"></div>
+<body class="general-container" onload="organizarLetras()">
 
     <!-- Contenedor para ingresar el nombre -->
-    <div id="containerForm"
-        class="container-form rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
+    <div id="containerForm" class="container-form rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
         <h1 class="m-0 p-0 text-light text-center pt-3">Stop!</h1>
         <input class="form-control my-3" type="text" placeholder="Ingresa tu nombre" id="name" name="name" />
         <input class="form-control my-3" type="text" placeholder="# de la sala" id="room" name="room" />
@@ -73,12 +70,12 @@
 
     <!-- Contenedor de ruleta -->
     <!-- Ruleta -->
-    <div class="roulette-container position-absolute top-50 start-50 translate-middle text-light">
+    <div id="rouletteContainer" class="container-roulette position-absolute top-50 start-50 translate-middle text-light">
         <div class="arrow-container">
             <div class="arrow"></div>
             <div class="arrow-symbol"></div>
         </div>
-        <div id="roulette-container" class="ruleta">
+        <div id="theRoulette" class="ruleta">
             <div class="letra la">A</div>
             <div class="letra lb">B</div>
             <div class="letra lc">C</div>
@@ -108,14 +105,22 @@
         </div>
     </div>
 
-
     <!-- Contendor de juego iniciado -->
-    <div id="containerGame" class="container-game pt-3 p-2 position-absolute top-0 start-0 vh-100">
+    <div id="containerGame" class="container-game pt-3 p-2 position-absolute top-0 start-0 min-vh-100">
         <h2 class="text-light text-center py-4">S T O P !</h2>
 
-        <p id="theplayer" class="form-label-styled text-light p-2 ps-5 mb-3">
-            Jugador #1: Juan Diego
-        </p>
+        <div class="container-fluid row m-0 mb-3 p-0 px-5 g-0 ">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p id="thePlayer" class="form-label-styled text-light m-0 p-0">
+                    Nombre: Juan Diego
+                </p>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center">
+                <p id="theLetter" class="text-light m-0 p-0">
+                    Letra: D
+                </p>
+            </div>
+        </div>
 
         <div id="game-columns" class="row g-3 justify-content-center text-center">
             <div class="col-sm-4 px-5">
@@ -124,39 +129,100 @@
             </div>
             <div class="col-sm-4 px-5">
                 <label class="form-label-styled text-light p-2">Apellido</label>
-                <input class="form-control-styled text-light" name="apellido" id="apellido" type="text" />
+                <input class="form-control-styled text-light" name="apellidoG" id="apellidoG" type="text" />
             </div>
             <div class="col-sm-4 px-5">
                 <label class="form-label-styled text-light p-2">País</label>
-                <input class="form-control-styled text-light" name="pais" id="pais" type="text" />
+                <input class="form-control-styled text-light" name="paisG" id="paisG" type="text" />
             </div>
             <div class="col-sm-4 px-5">
                 <label class="form-label-styled text-light p-2">Animal</label>
-                <input class="form-control-styled text-light" name="animal" id="animal" type="text" />
+                <input class="form-control-styled text-light" name="animalG" id="animalG" type="text" />
             </div>
             <div class="col-sm-4 px-5">
                 <label class="form-label-styled text-light p-2">Fruta</label>
-                <input class="form-control-styled text-light" name="fruta" id="fruta" type="text" />
+                <input class="form-control-styled text-light" name="frutaG" id="frutaG" type="text" />
             </div>
             <div class="col-sm-4 px-5">
                 <label class="form-label-styled text-light p-2">Color</label>
-                <input class="form-control-styled text-light" name="color" id="color" type="text" />
+                <input class="form-control-styled text-light" name="colorG" id="colorG" type="text" />
             </div>
             <div class="col-sm-4 px-5">
                 <label class="form-label-styled text-light p-2">Objeto</label>
-                <input class="form-control-styled text-light" name="objeto" id="objeto" type="text" />
+                <input class="form-control-styled text-light" name="objetoG" id="objetoG" type="text" />
             </div>
             <div class="col-sm-4 px-5">
                 <label class="form-label-styled text-light p-2">Artista</label>
-                <input class="form-control-styled text-light" name="artista" id="artista" type="text" />
+                <input class="form-control-styled text-light" name="artistaG" id="artistaG" type="text" />
             </div>
             <div class="col-sm-4 px-5">
                 <label class="form-label-styled text-light p-2">Ciudad</label>
-                <input class="form-control-styled text-light" name="ciudad" id="ciudad" type="text" />
+                <input class="form-control-styled text-light" name="ciudadG" id="ciudadG" type="text" />
             </div>
 
-            <div class="col-sm-4 mb-3">
-                <button class="btn btn-dark">S T O P !</button>
+            <div class="col-sm-4 my-3">
+                <button onclick="stopGame()" class="btn btn-dark">S T O P !</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor de respuestas de todos los jugadores -->
+    <div id="containerAnswers" class="container-answers pt-3 p-2 position-absolute top-0 start-0 min-vh-100">
+        <h2 class="text-light text-center py-4">S T O P !</h2>
+
+        <div class="container-fluid row m-0 mb-3 p-0 px-5 g-0 ">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p id="answersPlayer" class="form-label-styled text-light m-0 p-0">
+                    Nombre: Juan
+                </p>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center">
+                <p id="answersLetter" class="text-light m-0 p-0">
+                    Letra: D
+                </p>
+            </div>
+        </div>
+
+        <div id="game-columns" class="row g-3 justify-content-center text-center">
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Nombre</label>
+                <input class="form-control-styled text-light" name="nombreA" id="nombreA" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Apellido</label>
+                <input class="form-control-styled text-light" name="apellidoA" id="apellidoA" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">País</label>
+                <input class="form-control-styled text-light" name="paisA" id="paisA" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Animal</label>
+                <input class="form-control-styled text-light" name="animalA" id="animalA" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Fruta</label>
+                <input class="form-control-styled text-light" name="frutaA" id="frutaA" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Color</label>
+                <input class="form-control-styled text-light" name="colorA" id="colorA" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Objeto</label>
+                <input class="form-control-styled text-light" name="objetoA" id="objetoA" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Artista</label>
+                <input class="form-control-styled text-light" name="artistaA" id="artistaA" type="text" />
+            </div>
+            <div class="col-sm-4 px-5">
+                <label class="form-label-styled text-light p-2">Ciudad</label>
+                <input class="form-control-styled text-light" name="ciudadA" id="ciudadA" type="text" />
+            </div>
+
+            <div class="col-sm-4 my-3">
+                <button onclick="stopGame()" class="btn btn-dark">S T O P !</button>
             </div>
         </div>
     </div>
