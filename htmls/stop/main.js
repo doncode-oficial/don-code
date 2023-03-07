@@ -69,15 +69,30 @@ socket.on("id-room", (idRoom, thePlayers) => {
     roomH1.classList.add("container-room-show");
     roomH1.innerHTML = `Sala #${idRoom}`;
     theRoom = idRoom;
-    playerName = nameElement.value;
+    playerName = thePlayers[0];
     addHtmlPlayer(thePlayers[0]);
+})
+
+socket.on("you-joined", (idRoom, thePlayers) => {
+    playerName = nameElement.value + "" + (thePlayers.length - 1);
+    roomH1.classList.add("container-room-show");
+    roomH1.innerHTML = `Sala #${idRoom}`;
+    theRoom = idRoom;
+
+    // Primero se remueven los elementos hijos anteriores
+    let child = containerThePlayers.lastElementChild;
+    while (child) {
+        containerThePlayers.removeChild(child);
+        child = containerThePlayers.lastElementChild;
+    }
+
+    for (let i = 0; i < thePlayers.length; i++) addHtmlPlayer(thePlayers[i]);
 })
 
 socket.on("player-joined", (idRoom, thePlayers) => {
     roomH1.classList.add("container-room-show");
     roomH1.innerHTML = `Sala #${idRoom}`;
     theRoom = idRoom;
-    playerName = nameElement.value;
 
     // Primero se remueven los elementos hijos anteriores
     let child = containerThePlayers.lastElementChild;
@@ -130,8 +145,15 @@ socket.on("game-has-stopped", () => {
 
 socket.on("players-answers", (theAnswers) => {
     allAnswers = theAnswers;
-    console.log("allAnswers");
-    console.log(allAnswers);
+
+    let playersAnswers = Object.keys(allAnswers);
+
+    playersAnswers.forEach((e, i) => {
+        if (e != playerName) {
+            
+        }
+    })
+
 })
 
 function closeAlert(n) {

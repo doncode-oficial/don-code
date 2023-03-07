@@ -32,7 +32,7 @@
     z-index: 0;
 }
 
-.container-room, .container-game, .container-answers {
+.container-room, .container-game {
     z-index: 0;
     opacity: 0;
     background-color: rgba(0, 0, 0, .5);
@@ -141,4 +141,12 @@
     padding-right: 1rem;
     align-items: center;
     transform-origin: top left;
+}
+
+.mark::before {
+    content: "L";
+    font-weight: 500;
+    display: inline-block;
+    transform-origin: center;
+    transform: scaleX(-1) rotate(315deg);
 }
