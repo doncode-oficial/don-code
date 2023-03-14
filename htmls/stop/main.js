@@ -1,8 +1,9 @@
 // Para recordar el jugador
-// que crea la sala
-// y el número de esta.
+// que crea la sala, el número de esta
+// y la letra de juego.
 let theRoom = 0;
 let playerName = "";
+let globalLetter = "";
 
 // Para recibir todas las respuestas de todos los jugadores
 let allAnswers = {};
@@ -29,6 +30,9 @@ let containerRoulette = document.getElementById("rouletteContainer");
 let containerTheRoulette = document.getElementById("theRoulette");
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+// Para mostrar el h2 inicial
+let stopH2 = document.getElementById("stop-h2");
 
 // Para mostrar el tablero del jugador
 // donde digitará los valores en los textbox
@@ -125,6 +129,12 @@ socket.on("start-letter", async (theLetter) => {
 
     pPlayer.innerHTML = "Nombre: " + playerName;
     pLetter.innerHTML = "Letra: " + theLetter;
+
+    globalLetter = theLetter;
+
+    // Mostrar el primer h2
+    stopH2.classList.remove("stop-h2-hide");
+    stopH2.classList.add("stop-h2-show");
 })
 
 socket.on("game-has-stopped", () => {
@@ -145,12 +155,11 @@ socket.on("game-has-stopped", () => {
 
 socket.on("players-answers", (theAnswers) => {
     allAnswers = theAnswers;
-
     let playersAnswers = Object.keys(allAnswers);
 
     playersAnswers.forEach((e, i) => {
         if (e != playerName) {
-            
+            addPlayerAnswers(e, allAnswers[e]);
         }
     })
 
@@ -223,4 +232,88 @@ function organizarLetras() {
             contador++;
         }
     }
+}
+
+let tagsLabels = ["Nombre", "Apellido", "País", "Animal", "Fruta", "Color", "Objeto", "Artista", "Ciudad"];
+let keysAnswers = ["nombre", "apellido", "pais", "animal", "fruta", "color", "objeto", "artista", "ciudad"];
+
+function addPlayerAnswers(playerName, playerAnswers){
+    console.log("addPlayerAnswers");
+    console.log({playerName, playerAnswers});
+
+    // *******************************************
+    // Creación del h2 para organizar el contenido
+    let h2OrganizeContent = document.createElement("h2");
+    h2OrganizeContent.className = "text-light text-center py-5";
+    // *******************************************
+
+    // ************************************************************************************
+    // Creación del contenedor que contiene  el nombre de cada jugador y  la letra de juego
+    let divNameLetter = document.createElement('div');
+    divNameLetter.className = "container-fluid row m-0 mb-3 p-0 px-5 g-0";
+
+    let divDivName = document.createElement('div');
+    divDivName.className = "col d-flex justify-content-start align-items-center";
+
+    let divDivPName = document.createElement('p');
+    divDivPName.className = "form-label-styled text-light m-0 p-0";
+    divDivPName.innerHTML = "Nombre: " + playerName;
+
+    let divDivLetter = document.createElement('div');
+    divDivLetter.className = "col d-flex justify-content-end align-items-center";
+
+    let divDivPLetter = document.createElement('p');
+    divDivPLetter.className = "text-light m-0 p-0";
+    divDivPLetter.innerHTML = "Letra: " + globalLetter;
+
+    divDivName.appendChild(divDivPName);
+    divDivLetter.appendChild(divDivPLetter);
+
+    divNameLetter.appendChild(divDivName);
+    divNameLetter.appendChild(divDivLetter);
+    // ************************************************************************************
+
+    // ****************************************************************************
+    // Creación del contenedor que contiene  cada una de las respuestas del jugador
+    let divAnswers = document.createElement("div");
+    divAnswers.className = "row g-3 justify-content-center text-center";
+    
+    for (let i = 0; i < tagsLabels.length; i++) {
+        let divDivAnswers = document.createElement("div");
+        divDivAnswers.className = "col-sm-4 px-5";
+        
+        let divDivLabelAnswers = document.createElement("label");
+        divDivLabelAnswers.className = "form-label-styled text-light p-2";
+        divDivLabelAnswers.innerHTML = tagsLabels[i];
+
+        let divDivSpanAnswers = document.createElement("span");
+        divDivSpanAnswers.className = "fw-bold text-light d-block";
+        divDivSpanAnswers.innerHTML = playerAnswers[keysAnswers[i]];
+
+        let divDivDivAnswers = document.createElement("div");
+        divDivDivAnswers.className = "mt-2";
+
+        let divDivDivButton1Answers = document.createElement("button");
+        let divDivDivButton2Answers = document.createElement("button");
+        
+        divDivDivButton1Answers.className = "btn btn-success text-light mark";
+        divDivDivButton2Answers.className = "btn btn-danger fw-bold text-light xmark";
+        divDivDivButton2Answers.innerHTML = "X";
+        
+        divDivDivAnswers.appendChild(divDivDivButton1Answers);
+        divDivDivAnswers.appendChild(divDivDivButton2Answers);
+        
+        divDivAnswers.appendChild(divDivLabelAnswers);
+        divDivAnswers.appendChild(divDivSpanAnswers);
+        divDivAnswers.appendChild(divDivDivAnswers);
+        divAnswers.appendChild(divDivAnswers);
+    }
+    // ****************************************************************************
+    
+    containerAnswers.appendChild(h2OrganizeContent);
+    containerAnswers.appendChild(divNameLetter);
+    containerAnswers.appendChild(divAnswers);
+
+    containerGame.classList.remove("container-game-show");
+    containerAnswers.classList.add("container-answers-show");
 }

@@ -32,7 +32,23 @@
     z-index: 0;
 }
 
-.container-room, .container-game {
+#stop-h2 {
+    width: 100%;    
+    position: absolute;
+    z-index: 4;
+    transition: opacity 0.75s 0s ease-in;
+}
+
+.stop-h2-hide {
+    opacity: 0;
+}
+
+
+.stop-h2-show {
+    opacity: 1;
+}
+
+.container-room, .container-game, .container-answers {
     z-index: 0;
     opacity: 0;
     background-color: rgba(0, 0, 0, .5);
