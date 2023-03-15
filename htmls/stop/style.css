@@ -166,3 +166,11 @@
     transform-origin: center;
     transform: scaleX(-1) rotate(315deg);
 }
+
+.make-hover {
+    cursor: pointer;
+}
+
+.make-hover:hover {
+    cursor: pointer;
+}

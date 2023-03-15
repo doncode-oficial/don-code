@@ -67,6 +67,10 @@ let iObjetoA = document.getElementById("objetoA");
 let iArtistaA = document.getElementById("artistaA");
 let iCiudadA = document.getElementById("ciudadA");
 
+// Para enviar las respuestas validadas por los demás jugadores
+// una vez han sido revisadas.
+let finalAnswers = {};
+
 const socket = io("ws://localhost:3000");
 
 socket.on("id-room", (idRoom, thePlayers) => {
@@ -159,6 +163,18 @@ socket.on("players-answers", (theAnswers) => {
 
     playersAnswers.forEach((e, i) => {
         if (e != playerName) {
+            finalAnswers[e] = {
+                "nombre": 0,
+                "apellido": 0,
+                "pais": 0,
+                "animal": 0,
+                "fruta": 0,
+                "color": 0,
+                "objeto": 0,
+                "artista": 0,
+                "ciudad": 0
+            };
+
             addPlayerAnswers(e, allAnswers[e]);
         }
     })
@@ -200,10 +216,10 @@ function enterInRoom() {
     containerRoom.classList.add("container-room-show");
 }
 
-function addHtmlPlayer(playerName) {
+function addHtmlPlayer(thePlayer) {
     let divElement = document.createElement("div");
     divElement.className = "col-4"
-    divElement.innerHTML = playerName;
+    divElement.innerHTML = thePlayer;
     containerThePlayers.appendChild(divElement);
 }
 
@@ -234,12 +250,31 @@ function organizarLetras() {
     }
 }
 
+function setValidAnswer(thePlayer, question, answer, theSpan) {
+    finalAnswers[thePlayer][question] = answer;
+
+    // Si la respuesta es igual a 1, 
+    // agreguese el indicador de que la respuesta es correcta
+    if (answer == 1) {
+        theSpan.classList.remove("text-light");
+        theSpan.classList.add( "text-success");
+    } else {
+        theSpan.classList.remove("text-success");
+        theSpan.classList.add( "text-light");
+    }
+
+}
+
+function sendFinalAnswers() {
+
+}
+
 let tagsLabels = ["Nombre", "Apellido", "País", "Animal", "Fruta", "Color", "Objeto", "Artista", "Ciudad"];
 let keysAnswers = ["nombre", "apellido", "pais", "animal", "fruta", "color", "objeto", "artista", "ciudad"];
 
-function addPlayerAnswers(playerName, playerAnswers){
+function addPlayerAnswers(thePlayer, playerAnswers){
     console.log("addPlayerAnswers");
-    console.log({playerName, playerAnswers});
+    console.log({thePlayer, playerAnswers});
 
     // *******************************************
     // Creación del h2 para organizar el contenido
@@ -257,7 +292,7 @@ function addPlayerAnswers(playerName, playerAnswers){
 
     let divDivPName = document.createElement('p');
     divDivPName.className = "form-label-styled text-light m-0 p-0";
-    divDivPName.innerHTML = "Nombre: " + playerName;
+    divDivPName.innerHTML = "Nombre: " + thePlayer;
 
     let divDivLetter = document.createElement('div');
     divDivLetter.className = "col d-flex justify-content-end align-items-center";
@@ -286,9 +321,11 @@ function addPlayerAnswers(playerName, playerAnswers){
         divDivLabelAnswers.className = "form-label-styled text-light p-2";
         divDivLabelAnswers.innerHTML = tagsLabels[i];
 
+        let theKey = keysAnswers[i];
         let divDivSpanAnswers = document.createElement("span");
         divDivSpanAnswers.className = "fw-bold text-light d-block";
-        divDivSpanAnswers.innerHTML = playerAnswers[keysAnswers[i]];
+        divDivSpanAnswers.id = thePlayer + "" + theKey; // Prueba
+        divDivSpanAnswers.innerHTML = playerAnswers[theKey];
 
         let divDivDivAnswers = document.createElement("div");
         divDivDivAnswers.className = "mt-2";
@@ -296,9 +333,16 @@ function addPlayerAnswers(playerName, playerAnswers){
         let divDivDivButton1Answers = document.createElement("button");
         let divDivDivButton2Answers = document.createElement("button");
         
-        divDivDivButton1Answers.className = "btn btn-success text-light mark";
+        divDivDivButton1Answers.className = "btn btn-success text-light mark me-2";
         divDivDivButton2Answers.className = "btn btn-danger fw-bold text-light xmark";
         divDivDivButton2Answers.innerHTML = "X";
+
+        /*
+            1 -> Considero que la respuesta es correcta.
+            0 -> Considero que la respuesta es incorrecta.
+        */
+        divDivDivButton1Answers.onclick = () => setValidAnswer(thePlayer, theKey, 1, divDivSpanAnswers);
+        divDivDivButton2Answers.onclick = () => setValidAnswer(thePlayer, theKey, 0, divDivSpanAnswers);
         
         divDivDivAnswers.appendChild(divDivDivButton1Answers);
         divDivDivAnswers.appendChild(divDivDivButton2Answers);
@@ -309,10 +353,21 @@ function addPlayerAnswers(playerName, playerAnswers){
         divAnswers.appendChild(divDivAnswers);
     }
     // ****************************************************************************
+
+    // ********************************************
+    // Se crea como un h4, pero en sí es un botón.
+    // Se crea como h4 para los estilos de bootstrap.
+    let buttonSendFinalAnswers = document.createElement("h5");
+    buttonSendFinalAnswers.className = "make-hover text-light text-center py-5 w-100";
+    buttonSendFinalAnswers.innerHTML = "E N V I A R";
+
+    buttonSendFinalAnswers.onclick = () => sendFinalAnswers();
+    // ********************************************
     
     containerAnswers.appendChild(h2OrganizeContent);
     containerAnswers.appendChild(divNameLetter);
     containerAnswers.appendChild(divAnswers);
+    containerAnswers.appendChild(buttonSendFinalAnswers);
 
     containerGame.classList.remove("container-game-show");
     containerAnswers.classList.add("container-answers-show");
