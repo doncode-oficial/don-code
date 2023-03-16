@@ -114,7 +114,7 @@ socket.on("player-joined", (idRoom, thePlayers) => {
 
 socket.on("start-letter", async (theLetter) => {
     // Desaparecer el cartel del stop
-    containerForm.classList.add("container-form-hidde");
+    containerForm.classList.add("container-form-hide");
     // Desparecer el cartel de jugadores
     containerRoom.classList.remove("container-room-show");
     
@@ -194,7 +194,7 @@ function createNewRoom() {
     }
 
     socket.emit("create-room", nameElement.value);
-    containerForm.classList.add("container-form-hidde");
+    containerForm.classList.add("container-form-hide");
     containerRoom.classList.add("container-room-show");
 }
 
@@ -212,7 +212,7 @@ function enterInRoom() {
     }
 
     socket.emit("join-room", nameElement.value, roomElement.value);
-    containerForm.classList.add("container-form-hidde");
+    containerForm.classList.add("container-form-hide");
     containerRoom.classList.add("container-room-show");
 }
 

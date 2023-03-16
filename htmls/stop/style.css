@@ -3,8 +3,13 @@
     animation: movebackground 10s linear infinite;
     background-size: 400% 400%;
     background-attachment: fixed;
-    min-height: 100vh;
+    width: 100%;
+    height: 100vh;
     overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 @keyframes movebackground {
@@ -22,12 +27,12 @@
 }
 
 .container-form {
-    z-index: 2;
+    z-index: 0;
     background-color: rgba(0, 0, 0, .5);
     transition: opacity 0.75s 0s ease-in;
 }
 
-.container-form-hidde {
+.container-form-hide {
     opacity: 0;
     z-index: 0;
 }
@@ -35,14 +40,13 @@
 #stop-h2 {
     width: 100%;    
     position: absolute;
-    z-index: 4;
+    z-index: 2;
     transition: opacity 0.75s 0s ease-in;
 }
 
 .stop-h2-hide {
     opacity: 0;
 }
-
 
 .stop-h2-show {
     opacity: 1;
@@ -173,4 +177,51 @@
 
 .make-hover:hover {
     cursor: pointer;
+}
+
+.container-wait {
+    z-index: 2;
+}
+
+.background-h5 {
+    background-color: rgba(255,255,255,1);
+}
+
+.animation-wait {
+    width: 10rem;
+    height: 10rem;
+    border: 0.75rem solid transparent;
+    border-top-color: rgba(0,0,0,0.25);
+    border-radius: 50%;
+    animation: rotateCircle 5s linear 0s infinite;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: calc(50% - 5rem);
+    left: calc(50% - 5rem);
+    z-index: -1;
+}
+
+.animation-wait::after {
+    content: "";
+    width: 10rem;
+    height: 10rem;       
+    border: 0.75rem solid transparent;
+    border-bottom-color: white;
+    border-left-color: white;
+    border-right-color: white;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+}
+
+@keyframes rotateCircle {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

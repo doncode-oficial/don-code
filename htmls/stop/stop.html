@@ -15,7 +15,9 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<body class="general-container" onload="organizarLetras()">
+<body onload="organizarLetras()">
+
+    <div class="general-container"></div>
 
     <!-- Contenedor para ingresar el nombre -->
     <div id="containerForm" class="container-form rounded-5 px-5 text-center position-absolute top-50 start-50 translate-middle">
@@ -170,6 +172,16 @@
     <!-- Contenedor de respuestas de todos los jugadores -->
     <div id="containerAnswers" class="container-answers py-3 px-2 position-absolute top-0 start-0 min-vh-100">
         
+    </div>
+
+    <!-- Contenedor para indicar la espera de que todos los jugadores envíen sus respuestas -->
+    <div id="containerWait" class="container-wait position-absolute top-50 start-50 translate-middle text-center">
+        <h5 class="text-center text-dark rounded-5 p-2 m-0 background-h5 shadow-lg">Esperando a los demás jugadores...</h5>
+
+        <!-- Animación de círculo de espera -->
+        <div class="animation-wait text-center">
+
+        </div>
     </div>
 
 
