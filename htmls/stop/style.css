@@ -225,3 +225,11 @@
         transform: rotate(360deg);
     }
 }
+
+.container-decision {
+    z-index: 2;
+}
+
+.container-decision > p {
+
+}
