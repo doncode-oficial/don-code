@@ -67,9 +67,15 @@ let iObjetoA = document.getElementById("objetoA");
 let iArtistaA = document.getElementById("artistaA");
 let iCiudadA = document.getElementById("ciudadA");
 
+// Contenedor para esperar las respuestas de los otros jugadores
+let containerWait = document.getElementById("containerWait");
+
 // Para enviar las respuestas validadas por los demás jugadores
 // una vez han sido revisadas.
 let finalAnswers = {};
+
+// Para ir mostrando los resultados de los jugadores.
+let indexPlayer = 0;
 
 const socket = io("ws://localhost:3000");
 
@@ -179,6 +185,15 @@ socket.on("players-answers", (theAnswers) => {
         }
     })
 
+})
+
+socket.on("wait-players", () => {
+    containerAnswers.classList.add("container-answers-hide");
+    containerWait.classList.add("container-wait-show");
+})
+
+socket.on("final-score", (theAnswers, scorePlayers, playersMaxScore) => {
+    showFinalScore(theAnswers, scorePlayers, playersMaxScore);
 })
 
 function closeAlert(n) {
@@ -371,4 +386,43 @@ function addPlayerAnswers(thePlayer, playerAnswers){
 
     containerGame.classList.remove("container-game-show");
     containerAnswers.classList.add("container-answers-show");
+}
+
+function showInitialAnswers() {
+
+}
+
+function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
+    let countWinnerPlayers = playersMaxScore.length;
+
+    let pLetter = document.getElementById("pLetter");
+    pLetter.innerHTML = `Letra: ${globalLetter}`;
+
+    let h3Winner = document.getElementById("h3Winner");
+
+    if (countWinnerPlayers > 1) {
+        let messageH3 = "¡Ha habido un empate entre: <u>";
+
+        
+        for (let i = 1; i < countWinnerPlayers - 1; i++) {
+            messageH3 += playersMaxScore[i] + "</u>";
+            messageH3 += ", <u>";
+        }
+
+        messageH3 += playersMaxScore[countWinnerPlayers - 1] + "</u>";
+        messageH3 += ".";
+
+        h3Winner.innerHTML = messageH3;
+
+        // Nos queda organizar el scorePlayers por score
+
+        showInitialAnswers(playersMaxScore[0])
+
+
+        let uAnswer = documnet.getElementById("uAnswer");
+        uAnswer.innerHTML = playersMaxScore[0] + ":";
+
+    } else {
+
+    }
 }
