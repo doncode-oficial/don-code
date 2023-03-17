@@ -27,7 +27,7 @@
 }
 
 .container-form {
-    z-index: 0;
+    z-index: 2;
     background-color: rgba(0, 0, 0, .5);
     transition: opacity 0.75s 0s ease-in;
 }
@@ -40,26 +40,28 @@
 #stop-h2 {
     width: 100%;    
     position: absolute;
-    z-index: 2;
     transition: opacity 0.75s 0s ease-in;
 }
 
 .stop-h2-hide {
+    z-index: 0;
     opacity: 0;
 }
 
 .stop-h2-show {
+    z-index: 3;
     opacity: 1;
 }
 
-.container-room, .container-game, .container-answers {
+.container-room, .container-game, .container-answers, .container-wait, .container-decision {
     z-index: 0;
     opacity: 0;
     background-color: rgba(0, 0, 0, .5);
     transition: opacity 0.75s 0s ease-in;
 }
 
-.container-room-show, .container-game-show, .container-answers-show {
+.container-room-show, .container-game-show, .container-answers-show, .container-wait-show, 
+.container-decision-show {
     opacity: 1;
     z-index: 2;
 }
@@ -179,10 +181,6 @@
     cursor: pointer;
 }
 
-.container-wait {
-    z-index: 2;
-}
-
 .background-h5 {
     background-color: rgba(255,255,255,1);
 }
@@ -224,12 +222,4 @@
     100% {
         transform: rotate(360deg);
     }
-}
-
-.container-decision {
-    z-index: 2;
-}
-
-.container-decision > p {
-
 }

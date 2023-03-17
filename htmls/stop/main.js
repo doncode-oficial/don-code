@@ -265,8 +265,8 @@ function setValidAnswer(thePlayer, question, answer, theSpan) {
 
 }
 
-function sendFinalAnswers() {
-
+function sendFinalAnswers(thePlayer) {
+    socket.emit("final-answers", theRoom, finalAnswers, thePlayer);
 }
 
 let tagsLabels = ["Nombre", "Apellido", "País", "Animal", "Fruta", "Color", "Objeto", "Artista", "Ciudad"];
@@ -361,7 +361,7 @@ function addPlayerAnswers(thePlayer, playerAnswers){
     buttonSendFinalAnswers.className = "make-hover text-light text-center py-5 w-100";
     buttonSendFinalAnswers.innerHTML = "E N V I A R";
 
-    buttonSendFinalAnswers.onclick = () => sendFinalAnswers();
+    buttonSendFinalAnswers.onclick = () => sendFinalAnswers(thePlayer);
     // ********************************************
     
     containerAnswers.appendChild(h2OrganizeContent);
