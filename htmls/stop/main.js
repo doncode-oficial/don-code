@@ -400,16 +400,24 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
 
     let h3Winner = document.getElementById("h3Winner");
 
+    let thePlayers = Object.keys(scorePlayers);
+
     if (countWinnerPlayers > 1) {
         let messageH3 = "¡Ha habido un empate entre: <u>";
 
-        
-        for (let i = 1; i < countWinnerPlayers - 1; i++) {
-            messageH3 += playersMaxScore[i] + "</u>";
-            messageH3 += ", <u>";
+        let playersMessage = "";
+        for (let i = 0; i < countWinnerPlayers; i++) {
+            let everyPlayer = playersMaxScore[i]
+            if (i + 1 == countWinnerPlayers) playersMessage += everyPlayer + ".";
+            else playersMessage += everyPlayer + ", ";
+            thePlayers.pop(thePlayers.indexOf(everyPlayer));
         }
 
-        messageH3 += playersMaxScore[countWinnerPlayers - 1] + "</u>";
+        playersMaxScore.concat(thePlayers);
+
+        console.log({"afteConcat": playersMaxScore});
+
+        messageH3 += playersMessage + "</u>";
         messageH3 += ".";
 
         h3Winner.innerHTML = messageH3;
