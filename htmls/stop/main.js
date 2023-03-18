@@ -75,7 +75,11 @@ let containerWait = document.getElementById("containerWait");
 let finalAnswers = {};
 
 // Para ir mostrando los resultados de los jugadores.
+let finalArrayPlayers = [];
 let indexPlayer = 0;
+
+// Contenedor para mostrar el/los ganador/ganadores final/es.
+let containerDecision = document.getElementById("containerDecision");
 
 const socket = io("ws://localhost:3000");
 
@@ -188,7 +192,9 @@ socket.on("players-answers", (theAnswers) => {
 })
 
 socket.on("wait-players", () => {
-    containerAnswers.classList.add("container-answers-hide");
+    stopH2.classList.remove("stop-h2-show");
+    stopH2.classList.add("stop-h2-hide");
+    containerAnswers.classList.remove("container-answers-show");
     containerWait.classList.add("container-wait-show");
 })
 
@@ -388,18 +394,51 @@ function addPlayerAnswers(thePlayer, playerAnswers){
     containerAnswers.classList.add("container-answers-show");
 }
 
-function showInitialAnswers() {
+function showInitialAnswers(thePlayer, answersFromPlayer, scorePlayer) {
+    let uAnswer = document.getElementById("uAnswer");
+    uAnswer.innerHTML = thePlayer + ":";
 
+    let liNombre = document.getElementById("liNombre");
+    let liApellido = document.getElementById("liApellido");
+    let liPais = document.getElementById("liPais");
+    let liAnimal = document.getElementById("liAnimal");
+    let liFruta = document.getElementById("liFruta");
+    let liColor = document.getElementById("liColor");
+    let liObjeto = document.getElementById("liObjeto");
+    let liArtista = document.getElementById("liArtista");
+    let liCiudad = document.getElementById("liCiudad");
+
+    liNombre.innerHTML = "Nombre: " + answersFromPlayer["nombre"];
+    liApellido.innerHTML = "Apellido: " + answersFromPlayer["apellido"];
+    liPais.innerHTML = "País: " + answersFromPlayer["pais"];
+    liAnimal.innerHTML = "Animal: " + answersFromPlayer["animal"];
+    liFruta.innerHTML = "Fruta: " + answersFromPlayer["fruta"];
+    liColor.innerHTML = "Color: " + answersFromPlayer["color"];
+    liObjeto.innerHTML = "Objeto: " + answersFromPlayer["objeto"];
+    liArtista.innerHTML = "Artista: " + answersFromPlayer["artista"];
+    liCiudad.innerHTML = "Ciudad: " + answersFromPlayer["ciudad"];
+
+    let pFinalScore = document.getElementById("pFinalScore");
+    pFinalScore.innerHTML = "Puntuación final: " + scorePlayer;
+
+    // Finalmente se oculta el contenedor de respuestas,
+    // el cartel de S T O P ! y el contenedor de espera
+    // y se muestra el contenedor de decisión final.
+    stopH2.classList.remove("stop-h2-show");
+    stopH2.classList.add("stop-h2-hide");
+    containerAnswers.classList.remove("container-answers-show");
+    containerWait.classList.remove("container-wait-show");
+    containerDecision.classList.add("container-decision-show");
 }
 
 function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
     let countWinnerPlayers = playersMaxScore.length;
+    console.log({countWinnerPlayers});
 
     let pLetter = document.getElementById("pLetter");
     pLetter.innerHTML = `Letra: ${globalLetter}`;
 
     let h3Winner = document.getElementById("h3Winner");
-
     let thePlayers = Object.keys(scorePlayers);
 
     if (countWinnerPlayers > 1) {
@@ -414,23 +453,19 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
         }
 
         playersMaxScore.concat(thePlayers);
-
         console.log({"afteConcat": playersMaxScore});
+        finalArrayPlayers = [...playersMaxScore];
 
         messageH3 += playersMessage + "</u>";
         messageH3 += ".";
 
         h3Winner.innerHTML = messageH3;
 
-        // Nos queda organizar el scorePlayers por score
-
-        showInitialAnswers(playersMaxScore[0])
-
-
-        let uAnswer = documnet.getElementById("uAnswer");
-        uAnswer.innerHTML = playersMaxScore[0] + ":";
-
+        let firstPlayer = finalArrayPlayers[0];
+        showInitialAnswers(firstPlayer, theAnswers[firstPlayer], scorePlayers[firstPlayer]);
     } else {
-
+        let firstPlayer = playersMaxScore[0];
+        h3Winner.innerHTML = `¡El ganador es <u>${firstPlayer}!</u>`;
+        showInitialAnswers(firstPlayer, theAnswers[firstPlayer], scorePlayers[firstPlayer]);
     }
 }

@@ -53,10 +53,16 @@
     opacity: 1;
 }
 
-.container-room, .container-game, .container-answers, .container-wait, .container-decision {
+.container-room, .container-game, .container-answers {
     z-index: 0;
     opacity: 0;
     background-color: rgba(0, 0, 0, .5);
+    transition: opacity 0.75s 0s ease-in;
+}
+
+.container-wait, .container-decision {
+    z-index: 0;
+    opacity: 0;
     transition: opacity 0.75s 0s ease-in;
 }
 
