@@ -196,7 +196,7 @@
         <div>
             <div class="row">
                 <div class="col-4 d-flex justify-content-center align-items-center">
-                    <button class="btn">
+                    <button class="btn-custom" onclick="prevScore()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             class="bi bi-arrow-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -210,7 +210,7 @@
                     </p>
                 </div>
                 <div class="col-4 d-flex justify-content-center align-items-center">
-                    <button class="btn">
+                    <button class="btn-custom" onclick="nextScore()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             class="bi bi-arrow-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -235,7 +235,7 @@
 
         <p id="pFinalScore" class="mt-4">Puntuación final: 5</p>
 
-        <button class="btn text-center">Finalizar</button>
+        <button class="btn text-center" onclick="finishGame()">Finalizar</button>
     </div>
 
 

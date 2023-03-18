@@ -229,3 +229,22 @@
         transform: rotate(360deg);
     }
 }
+
+/* Botón para mostrar las respuestas de los demás jugadores */
+.btn-custom {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    outline: none;
+    border: none;
+}

@@ -81,6 +81,22 @@ let indexPlayer = 0;
 // Contenedor para mostrar el/los ganador/ganadores final/es.
 let containerDecision = document.getElementById("containerDecision");
 
+// Para almacenar los scores de cada jugador
+let allScores = {};
+
+// Para colocar jugador, respuestas y puntuación final.
+let uAnswer = document.getElementById("uAnswer");
+let liNombre = document.getElementById("liNombre");
+let liApellido = document.getElementById("liApellido");
+let liPais = document.getElementById("liPais");
+let liAnimal = document.getElementById("liAnimal");
+let liFruta = document.getElementById("liFruta");
+let liColor = document.getElementById("liColor");
+let liObjeto = document.getElementById("liObjeto");
+let liArtista = document.getElementById("liArtista");
+let liCiudad = document.getElementById("liCiudad");
+let pFinalScore = document.getElementById("pFinalScore");
+
 const socket = io("ws://localhost:3000");
 
 socket.on("id-room", (idRoom, thePlayers) => {
@@ -168,6 +184,13 @@ socket.on("game-has-stopped", () => {
 })
 
 socket.on("players-answers", (theAnswers) => {
+    // Primero se remueven los elementos hijos anteriores
+    let child = containerAnswers.lastElementChild;
+    while (child) {
+        containerAnswers.removeChild(child);
+        child = containerAnswers.lastElementChild;
+    }
+
     allAnswers = theAnswers;
     let playersAnswers = Object.keys(allAnswers);
 
@@ -395,18 +418,7 @@ function addPlayerAnswers(thePlayer, playerAnswers){
 }
 
 function showInitialAnswers(thePlayer, answersFromPlayer, scorePlayer) {
-    let uAnswer = document.getElementById("uAnswer");
     uAnswer.innerHTML = thePlayer + ":";
-
-    let liNombre = document.getElementById("liNombre");
-    let liApellido = document.getElementById("liApellido");
-    let liPais = document.getElementById("liPais");
-    let liAnimal = document.getElementById("liAnimal");
-    let liFruta = document.getElementById("liFruta");
-    let liColor = document.getElementById("liColor");
-    let liObjeto = document.getElementById("liObjeto");
-    let liArtista = document.getElementById("liArtista");
-    let liCiudad = document.getElementById("liCiudad");
 
     liNombre.innerHTML = "Nombre: " + answersFromPlayer["nombre"];
     liApellido.innerHTML = "Apellido: " + answersFromPlayer["apellido"];
@@ -418,7 +430,6 @@ function showInitialAnswers(thePlayer, answersFromPlayer, scorePlayer) {
     liArtista.innerHTML = "Artista: " + answersFromPlayer["artista"];
     liCiudad.innerHTML = "Ciudad: " + answersFromPlayer["ciudad"];
 
-    let pFinalScore = document.getElementById("pFinalScore");
     pFinalScore.innerHTML = "Puntuación final: " + scorePlayer;
 
     // Finalmente se oculta el contenedor de respuestas,
@@ -441,23 +452,23 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
     let h3Winner = document.getElementById("h3Winner");
     let thePlayers = Object.keys(scorePlayers);
 
+    allScores = scorePlayers;
+
     if (countWinnerPlayers > 1) {
         let messageH3 = "¡Ha habido un empate entre: <u>";
 
         let playersMessage = "";
         for (let i = 0; i < countWinnerPlayers; i++) {
             let everyPlayer = playersMaxScore[i]
-            if (i + 1 == countWinnerPlayers) playersMessage += everyPlayer + ".";
+            if (i + 1 == countWinnerPlayers) playersMessage += " y " + everyPlayer + ".";
+            else if (i + 2 == countWinnerPlayers) playersMessage += everyPlayer;
             else playersMessage += everyPlayer + ", ";
             thePlayers.pop(thePlayers.indexOf(everyPlayer));
         }
 
-        playersMaxScore.concat(thePlayers);
-        console.log({"afteConcat": playersMaxScore});
-        finalArrayPlayers = [...playersMaxScore];
+        finalArrayPlayers = playersMaxScore.concat(thePlayers);;
 
         messageH3 += playersMessage + "</u>";
-        messageH3 += ".";
 
         h3Winner.innerHTML = messageH3;
 
@@ -466,6 +477,67 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
     } else {
         let firstPlayer = playersMaxScore[0];
         h3Winner.innerHTML = `¡El ganador es <u>${firstPlayer}!</u>`;
+
+        thePlayers.pop(thePlayers.indexOf(firstPlayer));
+        finalArrayPlayers = playersMaxScore.concat(thePlayers);;
+
         showInitialAnswers(firstPlayer, theAnswers[firstPlayer], scorePlayers[firstPlayer]);
     }
+}
+
+function nextScore() {
+    indexPlayer += 1;
+
+    if (indexPlayer == finalArrayPlayers.length) {
+        indexPlayer = 0;
+    }
+
+    let thePlayer = finalArrayPlayers[indexPlayer];
+    uAnswer.innerHTML = thePlayer + ":";
+
+    let answersFromPlayer = allAnswers[thePlayer];
+
+    liNombre.innerHTML = "Nombre: " + answersFromPlayer["nombre"];
+    liApellido.innerHTML = "Apellido: " + answersFromPlayer["apellido"];
+    liPais.innerHTML = "País: " + answersFromPlayer["pais"];
+    liAnimal.innerHTML = "Animal: " + answersFromPlayer["animal"];
+    liFruta.innerHTML = "Fruta: " + answersFromPlayer["fruta"];
+    liColor.innerHTML = "Color: " + answersFromPlayer["color"];
+    liObjeto.innerHTML = "Objeto: " + answersFromPlayer["objeto"];
+    liArtista.innerHTML = "Artista: " + answersFromPlayer["artista"];
+    liCiudad.innerHTML = "Ciudad: " + answersFromPlayer["ciudad"];
+
+    let scorePlayer = allScores[thePlayer];
+    pFinalScore.innerHTML = "Puntuación final: " + scorePlayer;
+}
+
+function prevScore() {
+    indexPlayer -= 1;
+
+    if (indexPlayer == -1) {
+        indexPlayer = finalArrayPlayers.length - 1;
+    }
+
+    let thePlayer = finalArrayPlayers[indexPlayer];
+    uAnswer.innerHTML = thePlayer + ":";
+
+    let answersFromPlayer = allAnswers[thePlayer];
+
+    liNombre.innerHTML = "Nombre: " + answersFromPlayer["nombre"];
+    liApellido.innerHTML = "Apellido: " + answersFromPlayer["apellido"];
+    liPais.innerHTML = "País: " + answersFromPlayer["pais"];
+    liAnimal.innerHTML = "Animal: " + answersFromPlayer["animal"];
+    liFruta.innerHTML = "Fruta: " + answersFromPlayer["fruta"];
+    liColor.innerHTML = "Color: " + answersFromPlayer["color"];
+    liObjeto.innerHTML = "Objeto: " + answersFromPlayer["objeto"];
+    liArtista.innerHTML = "Artista: " + answersFromPlayer["artista"];
+    liCiudad.innerHTML = "Ciudad: " + answersFromPlayer["ciudad"];
+
+    let scorePlayer = allScores[thePlayer];
+    pFinalScore.innerHTML = "Puntuación final: " + scorePlayer;
+}
+
+// Para finalizar la partida
+function finishGame() {
+    socket.emit("finish-game", theRoom);
 }
