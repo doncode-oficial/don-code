@@ -152,6 +152,7 @@ socket.on("start-letter", async (theLetter) => {
 
     // Ocultar la ruleta
     await new Promise(resolve => setTimeout(resolve, 6000));
+    containerTheRoulette.style.removeProperty("transform");
     containerRoulette.classList.remove("container-roulette-show");
 
     // Mostrar el panel de jugadores 
@@ -224,6 +225,35 @@ socket.on("wait-players", () => {
 socket.on("final-score", (theAnswers, scorePlayers, playersMaxScore) => {
     showFinalScore(theAnswers, scorePlayers, playersMaxScore);
 })
+
+socket.on("wait-back-players", () => {
+    containerDecision.classList.remove("container-decision-show");
+    containerWait.classList.add("container-wait-show");
+})
+
+socket.on("start-again", () => {
+    // Se modifican las entradas de texto.
+    iNombreG.value = "";
+    iApellidoG.value = "";
+    iPaisG.value = "";
+    iAnimalG.value = "";
+    iFrutaG.value = "";
+    iColorG.value = "";
+    iObjetoG.value = "";
+    iArtistaG.value = "";
+    iCiudadG.value = "";
+
+    // Se reinician valores relacionados con las respuestas
+    allAnswers = {};
+    finalAnswers = {};
+    finalArrayPlayers = [];
+    indexPlayer = 0;
+    allScores = {};
+
+    containerDecision.classList.remove("container-decision-show");
+    containerWait.classList.remove("container-wait-show");
+    containerRoom.classList.add("container-room-show");
+});
 
 function closeAlert(n) {
     theAlerts[n].classList.remove("d-block");
@@ -472,6 +502,8 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
 
         h3Winner.innerHTML = messageH3;
 
+        console.log({finalArrayPlayers});
+
         let firstPlayer = finalArrayPlayers[0];
         showInitialAnswers(firstPlayer, theAnswers[firstPlayer], scorePlayers[firstPlayer]);
     } else {
@@ -479,7 +511,9 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
         h3Winner.innerHTML = `¡El ganador es <u>${firstPlayer}!</u>`;
 
         thePlayers.pop(thePlayers.indexOf(firstPlayer));
-        finalArrayPlayers = playersMaxScore.concat(thePlayers);;
+        finalArrayPlayers = playersMaxScore.concat(thePlayers);
+
+        console.log({finalArrayPlayers});
 
         showInitialAnswers(firstPlayer, theAnswers[firstPlayer], scorePlayers[firstPlayer]);
     }
@@ -487,6 +521,7 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
 
 function nextScore() {
     indexPlayer += 1;
+    console.log({indexPlayer});
 
     if (indexPlayer == finalArrayPlayers.length) {
         indexPlayer = 0;
@@ -513,6 +548,7 @@ function nextScore() {
 
 function prevScore() {
     indexPlayer -= 1;
+    console.log({indexPlayer});
 
     if (indexPlayer == -1) {
         indexPlayer = finalArrayPlayers.length - 1;
@@ -539,5 +575,5 @@ function prevScore() {
 
 // Para finalizar la partida
 function finishGame() {
-    socket.emit("finish-game", theRoom);
+    socket.emit("finish-game", theRoom, playerName);
 }
