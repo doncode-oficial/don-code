@@ -192,8 +192,10 @@ socket.on("players-answers", (theAnswers) => {
         child = containerAnswers.lastElementChild;
     }
 
-    allAnswers = theAnswers;
+    allAnswers = theAnswers[theRoom];
     let playersAnswers = Object.keys(allAnswers);
+
+    console.log({"Prueba": playersAnswers});
 
     playersAnswers.forEach((e, i) => {
         if (e != playerName) {
@@ -481,6 +483,8 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
 
     let h3Winner = document.getElementById("h3Winner");
     let thePlayers = Object.keys(scorePlayers);
+    console.log({scorePlayers});
+    console.log({thePlayers});
 
     allScores = scorePlayers;
 
@@ -493,7 +497,7 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
             if (i + 1 == countWinnerPlayers) playersMessage += " y " + everyPlayer + ".";
             else if (i + 2 == countWinnerPlayers) playersMessage += everyPlayer;
             else playersMessage += everyPlayer + ", ";
-            thePlayers.pop(thePlayers.indexOf(everyPlayer));
+            thePlayers.splice(thePlayers.indexOf(everyPlayer), 1);
         }
 
         finalArrayPlayers = playersMaxScore.concat(thePlayers);;
@@ -510,7 +514,7 @@ function showFinalScore(theAnswers, scorePlayers, playersMaxScore) {
         let firstPlayer = playersMaxScore[0];
         h3Winner.innerHTML = `¡El ganador es <u>${firstPlayer}!</u>`;
 
-        thePlayers.pop(thePlayers.indexOf(firstPlayer));
+        thePlayers.splice(thePlayers.indexOf(firstPlayer), 1);
         finalArrayPlayers = playersMaxScore.concat(thePlayers);
 
         console.log({finalArrayPlayers});
